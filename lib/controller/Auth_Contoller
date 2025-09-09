@@ -1,0 +1,60 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project1_flutter/routes/routes.dart';
+
+
+class AuthController extends GetxController {
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  void login() {
+    final user = usernameController.text.trim();
+    final pass = passwordController.text.trim();
+
+    if (user == "ghasia" && pass == "admin123") {
+      Get.snackbar(
+        'Login Berhasil!',
+        'Selamat datang kembali $user!',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+        margin: const EdgeInsets.all(10),
+      );
+
+      Get.offAllNamed(
+        AppRoutes.login,
+        arguments: {"username": user},
+      );
+    } else if (user == "dhiaz" && pass == "123456") {
+      Get.snackbar(
+        'Login Berhasil!',
+        'Selamat datang kembali $user!',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+        margin: const EdgeInsets.all(10),
+      );
+
+      Get.offAllNamed(
+        AppRoutes.login,
+        arguments: {"username": user},
+      );
+    } else {
+      Get.snackbar(
+        'Login Gagal!',
+        'Username atau password salah.',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        margin: const EdgeInsets.all(10),
+      );
+    }
+  }
+
+  @override
+  void onClose() {
+    usernameController.dispose();
+    passwordController.dispose();
+    super.onClose();
+  }
+}
