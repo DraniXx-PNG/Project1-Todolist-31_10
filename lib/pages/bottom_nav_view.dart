@@ -10,7 +10,7 @@ class BottomNavView extends StatelessWidget {
 
   final BottomNavController navController = Get.put(BottomNavController());
 
-  final List<Widget> pages = const [
+  final List<Widget> pages = [
     HomePage(),
     HistoryPage(),
     ProfilePage(),
@@ -23,7 +23,7 @@ class BottomNavView extends StatelessWidget {
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: navController.currentIndex.value,
             onTap: navController.changePage,
-            items: const [
+            items: [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
               BottomNavigationBarItem(icon: Icon(Icons.history), label: "History"),
               BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
