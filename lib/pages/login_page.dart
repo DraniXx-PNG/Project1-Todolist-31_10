@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project1_flutter/controller/Auth_Contoller';
+import 'package:project1_flutter/controller/auth_controller.dart';
 
 import 'package:project1_flutter/widgets/custom_button.dart';
 import 'package:project1_flutter/widgets/custom_textfield.dart';

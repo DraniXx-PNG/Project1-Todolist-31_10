@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project1_flutter/controller/auth_controller.dart';
 import 'package:project1_flutter/routes/pages.dart';
 import 'package:project1_flutter/routes/routes.dart';
 
 void main() {
   runApp(const MyApp());
+    Get.put(AuthController());
 }
 
 class MyApp extends StatelessWidget {

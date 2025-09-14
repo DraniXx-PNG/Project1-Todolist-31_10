@@ -1,99 +1,103 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project1_flutter/controller/todolist_controller.dart';
+import 'package:project1_flutter/models/Todo_models.dart';
+import 'package:project1_flutter/pages/todolistedit_page.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+
+  Color _getPriorityColor(TaskPriority priority) {
+    switch (priority) {
+      case TaskPriority.low:
+        return Colors.green;
+      case TaskPriority.normal:
+        return Colors.blue;
+      case TaskPriority.high:
+        return Colors.orange;
+      case TaskPriority.urgent:
+        return Colors.red;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final TodolistController controller = Get.put(TodolistController());
+
     return Scaffold(
-      backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title: const Text("Home"),
-        centerTitle: true,
-        elevation: 0,
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.deepPurple, Colors.blueAccent],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-        ),
+        title: const Text("Todolist"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "Selamat Datang 👋",
-              style: TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              "",
-              style: TextStyle(fontSize: 16, color: Colors.grey),
-            ),
-            const SizedBox(height: 20),
+      body: Obx(() {
+        if (controller.tasks.isEmpty) {
+          return const Center(child: Text("Belum ada task"));
+        }
 
-            // Grid menu hanya 2 item
-            Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                children: [
-                  _buildMenuCard(Icons.history, "History", Colors.blue),
-                  _buildMenuCard(Icons.person, "Profil", Colors.orange),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+        return ListView.builder(
+          itemCount: controller.tasks.length,
+          itemBuilder: (context, index) {
+            final task = controller.tasks[index];
+            final isDone = task.isDone;
 
-  Widget _buildMenuCard(IconData icon, String title, Color color) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      elevation: 6,
-      shadowColor: color.withOpacity(0.3),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(20),
-        onTap: () {
-          // TODO: Arahkan ke halaman lain
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            gradient: LinearGradient(
-              colors: [color.withOpacity(0.8), color.withOpacity(0.5)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, size: 50, color: Colors.white),
-              const SizedBox(height: 12),
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
+            return Card(
+              margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              child: ListTile(
+                leading: Checkbox(
+                  value: task.isDone,
+                  onChanged: (val) {
+                    controller.toggleTask(index);
+                  },
                 ),
+                title: Text(
+                  task.title,
+                  style: TextStyle(
+                    color: isDone ? Colors.grey : Colors.black,
+                    decoration: isDone
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none,
+                  ),
+                ),
+                subtitle: Text(
+                  task.priority.name.capitalizeFirst ?? "",
+                  style: TextStyle(
+                    color: isDone ? Colors.grey : _getPriorityColor(task.priority),
+                  ),
+                ),
+
+            
+                trailing: isDone
+                    ? null
+                    : Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.edit, color: Colors.orange),
+                            onPressed: () {
+                              Get.toNamed(
+                                '/todolist-edit',
+                                arguments: index,
+                              );
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.delete, color: Colors.red),
+                            onPressed: () {
+                              controller.deleteTask(index);
+                            },
+                          ),
+                        ],
+                      ),
               ),
-            ],
-          ),
+            );
+          },
+        );
+      }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.to(() => TodolistEditPage(), arguments: -1);
+        },
+        child: const Icon(Icons.add),
         ),
-      ),
     );
   }
 }
