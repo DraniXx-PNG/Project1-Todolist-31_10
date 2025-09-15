@@ -5,8 +5,9 @@ class TodolistController extends GetxController {
   var tasks = <Task>[].obs;
   var historyTasks = <Task>[].obs;
 
-  void addTask(String title, {TaskPriority priority = TaskPriority.normal}) {
-    tasks.add(Task(title: title, priority: priority));
+ 
+  void addTask(String title, {TaskCategory category = TaskCategory.sekolah}) {
+    tasks.add(Task(title: title, category: category));
   }
 
   void updateTask(int index, Task newTask) {
@@ -21,7 +22,6 @@ class TodolistController extends GetxController {
     task.isDone = !task.isDone;
 
     if (task.isDone) {
-  
       historyTasks.add(task);
       tasks.removeAt(index);
     }

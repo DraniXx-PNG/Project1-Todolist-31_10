@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project1_flutter/controller/todolist_controller.dart';
 
+
 class HistoryPage extends StatelessWidget {
- HistoryPage({super.key});
+  HistoryPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,21 +36,20 @@ class HistoryPage extends StatelessWidget {
                   ),
                 ),
                 subtitle: Text(
-                  task.priority.name[0].toUpperCase() +
-                      task.priority.name.substring(1),
+                  // tampilkan kategori (capitalize huruf pertama)
+                  task.category.name[0].toUpperCase() +
+                      task.category.name.substring(1),
                   style: const TextStyle(color: Colors.grey),
                 ),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                 
                     IconButton(
                       icon: const Icon(Icons.undo, color: Colors.blue),
                       onPressed: () {
                         controller.restoreTask(index);
                       },
                     ),
-                 
                     IconButton(
                       icon: const Icon(Icons.delete, color: Colors.red),
                       onPressed: () {
