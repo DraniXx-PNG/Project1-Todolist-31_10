@@ -5,18 +5,19 @@ import 'package:project1_flutter/models/Todo_models.dart';
 import 'package:project1_flutter/pages/todolistedit_page.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({super.key});
+HomePage({super.key});
 
-  Color _getPriorityColor(TaskPriority priority) {
-    switch (priority) {
-      case TaskPriority.low:
+
+  Color _getCategoryColor(TaskCategory category) {
+    switch (category) {
+      case TaskCategory.pribadi:
         return Colors.green;
-      case TaskPriority.normal:
+      case TaskCategory.pekerjaan:
         return Colors.blue;
-      case TaskPriority.high:
+      case TaskCategory.sekolah:
         return Colors.orange;
-      case TaskPriority.urgent:
-        return Colors.red;
+      case TaskCategory.lainnya:
+        return Colors.purple;
     }
   }
 
@@ -58,13 +59,13 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 subtitle: Text(
-                  task.priority.name.capitalizeFirst ?? "",
+                  task.category.name.capitalizeFirst ?? "",
                   style: TextStyle(
-                    color: isDone ? Colors.grey : _getPriorityColor(task.priority),
+                    color: isDone
+                        ? Colors.grey
+                        : _getCategoryColor(task.category as TaskCategory),
                   ),
                 ),
-
-            
                 trailing: isDone
                     ? null
                     : Row(
@@ -97,7 +98,7 @@ class HomePage extends StatelessWidget {
           Get.to(() => TodolistEditPage(), arguments: -1);
         },
         child: const Icon(Icons.add),
-        ),
+      ),
     );
   }
 }

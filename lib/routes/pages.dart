@@ -6,7 +6,6 @@ import 'package:project1_flutter/pages/history_page.dart';
 import 'package:project1_flutter/pages/profile_page.dart';
 import 'package:project1_flutter/pages/todolistedit_page.dart';
 import 'package:project1_flutter/routes/routes.dart';
-
 import '../bindings/login_binding.dart';
 import '../bindings/bottom_nav_binding.dart';
 import '../bindings/todolist_binding.dart';

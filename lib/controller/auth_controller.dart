@@ -77,22 +77,42 @@ class AuthController extends GetxController {
     }
   }
 
-  void logout() {
-    currentUserIndex.value = -1;
-    clearControllers();
+void logout() {
+  Get.defaultDialog(
+  title: "Konfirmasi Logout",
+  middleText: "Apakah kamu yakin ingin logout?",
+  confirm: ElevatedButton(
+  style: ElevatedButton.styleFrom(
+  backgroundColor: Colors.blue,
+      ),
+    onPressed: () {
+      currentUserIndex.value = -1;
+      clearControllers();
 
-    Get.snackbar(
-      "Logout Berhasil!",
-      "Silakan login kembali.",
-      snackPosition: SnackPosition.TOP,
-      backgroundColor: Colors.orange,
-      colorText: Colors.white,
-      margin: const EdgeInsets.all(10),
-    );
+      Get.snackbar(
+        "Logout Berhasil!",
+        "Silakan login kembali.",
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.orange,
+        colorText: Colors.white,
+        margin: const EdgeInsets.all(10),
+      );
 
-    Get.offAllNamed('/login');
-  }
-
+      Get.offAllNamed('/login');
+      },
+    child: const Text("Iya", style: TextStyle(color: Colors.white)),
+    ),
+    cancel: ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Colors.blueAccent,
+      ),
+      onPressed: () {
+        Get.back();
+      },
+      child: const Text("Tidak", style: TextStyle(color: Colors.white)),
+    ),
+  );
+}
   void clearControllers() {
     usernameController.clear();
     passwordController.clear();
