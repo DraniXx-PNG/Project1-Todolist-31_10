@@ -36,7 +36,6 @@ class HistoryPage extends StatelessWidget {
                   ),
                 ),
                 subtitle: Text(
-                  // tampilkan kategori (capitalize huruf pertama)
                   task.category.name[0].toUpperCase() +
                       task.category.name.substring(1),
                   style: const TextStyle(color: Colors.grey),
