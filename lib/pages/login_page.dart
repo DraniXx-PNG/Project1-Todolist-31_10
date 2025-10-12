@@ -54,7 +54,7 @@ class LoginPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 25),
 
-                    // Username Field
+                    
                     MyTextField(
                       textEditingController: authController.usernameController,
                       labelText: "Username",
@@ -62,7 +62,7 @@ class LoginPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
 
-                    // Password Field
+                   
                     MyTextField(
                       textEditingController: authController.passwordController,
                       labelText: "Password",
@@ -70,7 +70,7 @@ class LoginPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 30),
 
-                    // Login Button
+                    
                     CustomButton(
                       text: "Login",
                       textColor: Colors.black,

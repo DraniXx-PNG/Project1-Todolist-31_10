@@ -1,12 +1,17 @@
 import 'package:get/get.dart';
+import 'package:project1_flutter/bindings/Examle_binding.dart';
+import 'package:project1_flutter/bindings/contact_binding.dart';
+import 'package:project1_flutter/bindings/splash_binding.dart';
+import 'package:project1_flutter/pages/contact_page.dart';
+import 'package:project1_flutter/pages/example_page.dart';
 import 'package:project1_flutter/pages/home_page.dart';
 import 'package:project1_flutter/pages/login_page.dart';
 import 'package:project1_flutter/pages/bottom_nav_view.dart';
 import 'package:project1_flutter/pages/history_page.dart';
 import 'package:project1_flutter/pages/profile_page.dart';
+import 'package:project1_flutter/pages/splashscreen_page.dart';
 import 'package:project1_flutter/pages/todolistedit_page.dart';
 import 'package:project1_flutter/routes/routes.dart';
-
 import '../bindings/login_binding.dart';
 import '../bindings/bottom_nav_binding.dart';
 import '../bindings/todolist_binding.dart';
@@ -19,7 +24,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.login,
       page: () =>  LoginPage(),
-      binding: AuthBinding(),
+      binding: LoginBinding(),
     ),
     GetPage(
       name: AppRoutes.bottomNav,
@@ -46,5 +51,20 @@ class AppPages {
       page: () =>  ProfilePage(),
       binding: ProfileBinding(),
     ),
-  ];
+    GetPage(
+      name: AppRoutes.splash,
+      page: () =>  SplashscreenPage(),
+      binding: SplashBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.contact,
+      page: () =>  ContactPage(),
+      binding: ContactBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.examplescreen,
+      page: () =>  ExamplePage(),
+      binding: ExamleBinding(),
+  
+  )];
 }

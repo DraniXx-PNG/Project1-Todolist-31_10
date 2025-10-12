@@ -8,3 +8,4 @@ class BottomNavBinding extends Bindings {
     Get.lazyPut<BottomNavController>(() => BottomNavController());
   }
 }
+                                                                                                                                                                                                                                                                                                                                            
