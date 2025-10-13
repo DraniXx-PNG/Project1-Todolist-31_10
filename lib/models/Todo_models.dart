@@ -1,15 +1,14 @@
-enum TaskPriority { low, normal, high, urgent }
+enum TaskCategory {pribadi ,pekerjaan, sekolah,  lainnya,}
 
 class Task {
   int? id;
   String title;
   bool isDone;
-  TaskPriority priority;
+  TaskCategory category;
 
   Task({
     this.id,
     required this.title,
-    this.isDone = false,
     this.priority = TaskPriority.normal,
   });
 
@@ -57,4 +56,7 @@ class Task {
       priority: priorityFromString(map['priority']),
     );
   }
+    this.category = TaskCategory.lainnya,
+  });
+
 }

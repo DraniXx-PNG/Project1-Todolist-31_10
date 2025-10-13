@@ -11,6 +11,9 @@ class TodolistController extends GetxController {
   void onInit() {
     super.onInit();
     loadTasks(); // <-- Muat data dari database saat app dibuka
+ 
+  void addTask(String title, {TaskCategory category = TaskCategory.sekolah}) {
+    tasks.add(Task(title: title, category: category));
   }
 
   // 🔹 Ambil semua data dari database
@@ -47,12 +50,14 @@ class TodolistController extends GetxController {
     await dbHelper.updateTask(task.id!, task.toMap());
     await loadTasks();
   }
-
   // 🔹 Hapus task
   Future<void> deleteTask(int index) async {
     final id = tasks[index].id;
     if (id != null) {
       await dbHelper.deleteTask(id);
+    if (task.isDone) {
+      historyTasks.add(task);
+      tasks.removeAt(index);
     }
     await loadTasks();
   }
