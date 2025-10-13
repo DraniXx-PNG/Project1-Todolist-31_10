@@ -4,9 +4,10 @@ import 'package:project1_flutter/controller/todolist_controller.dart';
 import 'package:project1_flutter/models/Todo_models.dart';
 import 'package:project1_flutter/pages/todolistedit_page.dart';
 
-class HomePage extends StatelessWidget {
-HomePage({super.key});
+class TodolistMobilePage extends StatelessWidget {
+  TodolistMobilePage({super.key});
 
+    final TodolistController controller = Get.put(TodolistController());
 
   Color _getCategoryColor(TaskCategory category) {
     switch (category) {
@@ -23,8 +24,6 @@ HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final TodolistController controller = Get.put(TodolistController());
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Todolist"),
@@ -72,7 +71,8 @@ HomePage({super.key});
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           IconButton(
-                            icon: const Icon(Icons.edit, color: Colors.orange),
+                            icon:
+                                const Icon(Icons.edit, color: Colors.orange),
                             onPressed: () {
                               Get.toNamed(
                                 '/todolist-edit',

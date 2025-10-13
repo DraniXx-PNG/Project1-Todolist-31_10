@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project1_flutter/controller/bottom_nav_controller.dart';
-import 'package:project1_flutter/pages/home_page.dart';
-import 'package:project1_flutter/pages/history_page.dart';
-import 'package:project1_flutter/pages/profile_page.dart';
+import 'package:project1_flutter/pages/Mobile%20Screen/history_mobile_page.dart';
+import 'package:project1_flutter/pages/Mobile%20Screen/todolist_mobile_page.dart';
+import 'package:project1_flutter/pages/Mobile%20Screen/profile_mobile_page.dart';
 
-class BottomNavView extends StatelessWidget {
-  BottomNavView({super.key});
+class BottomNavPage extends StatelessWidget {
+  BottomNavPage({super.key});
 
   final BottomNavController navController = Get.put(BottomNavController());
 
   final List<Widget> pages = [
-    HomePage(),
-    HistoryPage(),
-    ProfilePage(),
+    TodolistMobilePage(),
+    HistoryPageMobile(),
+    ProfileMobilePage(),
   ];
 
   @override

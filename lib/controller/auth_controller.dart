@@ -4,6 +4,14 @@ import 'package:get/get.dart';
 class AuthController extends GetxController {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  var isMobile = true.obs;
+
+
+  void updateLayout(BoxConstraints constraints){
+  isMobile.value = constraints.maxWidth < 600;
+}
+
+  
 
   final users = [
     {
@@ -64,7 +72,7 @@ class AuthController extends GetxController {
         margin: const EdgeInsets.all(10),
       );
 
-      Get.offAllNamed('/bottom-nav', arguments: index);
+      Get.offAllNamed('/main', arguments: index);
     } else {
       Get.snackbar(
         "Login Gagal!",

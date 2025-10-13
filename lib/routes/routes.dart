@@ -5,4 +5,5 @@ class AppRoutes {
   static const todolistEdit = '/todolist-edit';
   static const history = '/history';
   static const profile = '/profile';
+  static const main = '/main';
 }

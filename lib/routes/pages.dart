@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
-import 'package:project1_flutter/pages/home_page.dart';
+import 'package:project1_flutter/pages/todolist_page.dart';
 import 'package:project1_flutter/pages/login_page.dart';
-import 'package:project1_flutter/pages/bottom_nav_view.dart';
+
 import 'package:project1_flutter/pages/history_page.dart';
+import 'package:project1_flutter/pages/main_page.dart';
 import 'package:project1_flutter/pages/profile_page.dart';
 import 'package:project1_flutter/pages/todolistedit_page.dart';
 import 'package:project1_flutter/routes/routes.dart';
@@ -20,14 +21,10 @@ class AppPages {
       page: () =>  LoginPage(),
       binding: AuthBinding(),
     ),
-    GetPage(
-      name: AppRoutes.bottomNav,
-      page: () => BottomNavView(),
-      binding: BottomNavBinding(),
-    ),
+ 
     GetPage(
       name: AppRoutes.todolist,
-      page: () =>  HomePage(),
+      page: () =>  TodolistPage(),
       binding: TodolistBinding(),
     ),
     GetPage(
@@ -44,6 +41,10 @@ class AppPages {
       name: AppRoutes.profile,
       page: () =>  ProfilePage(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.main,
+      page: () =>  MainPage(),
     ),
   ];
 }

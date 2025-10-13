@@ -4,7 +4,7 @@ import 'package:project1_flutter/controller/todolist_controller.dart';
 import 'package:project1_flutter/models/Todo_models.dart';
 
 class TodolistEditController extends GetxController {
-  final todolistController = Get.find<TodolistController>();
+  final todolistController = Get.put(TodolistController());
 
   late TextEditingController titleController;
   late int taskIndex;
