@@ -3,13 +3,21 @@ import 'package:get/get.dart';
 import 'package:project1_flutter/controller/todolist_controller.dart';
 import 'package:project1_flutter/models/Todo_models.dart';
 
+
 class TodolistEditController extends GetxController {
-  final todolistController = Get.put(TodolistController());
+  final todolistController = Get.find<TodolistController>();
 
   late TextEditingController titleController;
   late int taskIndex;
+  var selectedPriority = TaskCategory.sekolah.obs;
 
-  var selectedCategory = TaskCategory.sekolah.obs;
+  var isMobile = true.obs;
+
+
+  void updateLayout(BoxConstraints constraints){
+  isMobile.value = constraints.maxWidth < 600;
+}
+
 
   @override
   void onInit() {
@@ -20,9 +28,7 @@ class TodolistEditController extends GetxController {
     if (taskIndex >= 0 && taskIndex < todolistController.tasks.length) {
       final Task task = todolistController.tasks[taskIndex];
       titleController = TextEditingController(text: task.title);
-
-      // ambil kategori task yang ada
-      selectedCategory.value = task.category;
+      selectedPriority.value = task.category;
     } else {
       titleController = TextEditingController();
     }
@@ -30,27 +36,24 @@ class TodolistEditController extends GetxController {
 
   void saveTask() {
     if (titleController.text.trim().isEmpty) {
-      Get.snackbar(
-        "Peringatan",
-        "Judul task tidak boleh kosong",
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      Get.snackbar("Peringatan", "Judul task tidak boleh kosong",
+          snackPosition: SnackPosition.BOTTOM);
       return;
     }
 
     final newTask = Task(
       title: titleController.text,
-      isDone: taskIndex >= 0 ? todolistController.tasks[taskIndex].isDone : false,
-      category: selectedCategory.value, 
+      isDone: taskIndex >= 0
+          ? todolistController.tasks[taskIndex].isDone
+          : false,
+      category: selectedPriority.value,
     );
 
     if (taskIndex >= 0) {
       todolistController.updateTask(taskIndex, newTask);
     } else {
-      todolistController.addTask(
-        newTask.title,
-        category: selectedCategory.value, 
-      );
+      todolistController.addTask(newTask.title,
+          priority: selectedPriority.value);
     }
 
     Get.back();

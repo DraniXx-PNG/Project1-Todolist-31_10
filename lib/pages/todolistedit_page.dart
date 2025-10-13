@@ -27,27 +27,21 @@ TodolistEditPage({super.key});
             ),
             const SizedBox(height: 20),
 
-
-           
-            Obx(() => DropdownButtonFormField<TaskPriority>(
-                  value: controller.selectedPriority.value,
-
-            
+            // 🔽 Dropdown Prioritas
             Obx(() => DropdownButtonFormField<TaskCategory>(
-                  value: controller.selectedCategory.value,
-
+                  value: controller.selectedPriority.value,
                   decoration: const InputDecoration(
-                    labelText: "Kategori",
+                    labelText: "Prioritas",
                     border: OutlineInputBorder(),
                   ),
-                  items: TaskCategory.values.map((category) {
+                  items: TaskCategory.values.map((priority) {
                     return DropdownMenuItem<TaskCategory>(
-                      value: category,
-                      child: Text(category.name.capitalizeFirst ?? ''),
+                      value: priority,
+                      child: Text(priority.name.capitalizeFirst ?? ''),
                     );
                   }).toList(),
                   onChanged: (value) {
-                    if (value != null) controller.selectedCategory.value = value;
+                    if (value != null) controller.selectedPriority.value = value;
                   },
                 )),
             const SizedBox(height: 20),
