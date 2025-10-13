@@ -7,3 +7,4 @@ class TodolistBinding extends Bindings {
     Get.lazyPut<TodolistController>(() => TodolistController());
   }
 }
+  

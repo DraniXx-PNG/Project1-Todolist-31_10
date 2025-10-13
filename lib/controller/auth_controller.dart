@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project1_flutter/routes/routes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController extends GetxController {
   final TextEditingController usernameController = TextEditingController();
@@ -12,6 +14,9 @@ class AuthController extends GetxController {
 }
 
   
+
+  /// ⬇️ Tambahkan RxBool untuk toggle password visibility
+  var isPasswordHidden = true.obs;
 
   final users = [
     {
@@ -38,11 +43,29 @@ class AuthController extends GetxController {
 
   var currentUserIndex = (-1).obs;
 
-  void login() {
+  @override
+  void onInit() {
+    super.onInit();
+    checkLoginStatus();
+  }
+
+  Future<void> checkLoginStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? username = prefs.getString("username");
+
+    if (username != null) {
+      final index = users.indexWhere((u) => u["username"] == username);
+      if (index != -1) {
+        currentUserIndex.value = index;
+        Get.offAllNamed(AppRoutes.bottomNav, arguments: index);
+      }
+    }
+  }
+
+  Future<void> login() async {
     String username = usernameController.text.trim();
     String password = passwordController.text.trim();
 
-    
     if (username.isEmpty || password.isEmpty) {
       Get.snackbar(
         "Login Gagal!",
@@ -55,13 +78,14 @@ class AuthController extends GetxController {
       return;
     }
 
-
     final index = users.indexWhere(
       (u) => u["username"] == username && u["password"] == password,
     );
 
     if (index != -1) {
       currentUserIndex.value = index;
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString("username", username);
 
       Get.snackbar(
         "Login Berhasil!",
@@ -72,7 +96,11 @@ class AuthController extends GetxController {
         margin: const EdgeInsets.all(10),
       );
 
+<<<<<<< HEAD
       Get.offAllNamed('/main', arguments: index);
+=======
+      Get.offAllNamed(AppRoutes.bottomNav, arguments: index);
+>>>>>>> add41785e54426c9c91a03103392f5670ff6bfbb
     } else {
       Get.snackbar(
         "Login Gagal!",
@@ -83,6 +111,42 @@ class AuthController extends GetxController {
         margin: const EdgeInsets.all(10),
       );
     }
+  }
+
+
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove("username");
+
+    Get.defaultDialog(
+      title: "Konfirmasi Logout",
+      middleText: "Apakah kamu yakin ingin logout?",
+      confirm: ElevatedButton(
+        style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+        onPressed: () {
+          currentUserIndex.value = -1;
+          clearControllers();
+          Get.back();
+
+          Get.snackbar(
+            "Logout Berhasil!",
+            "Silakan login kembali.",
+            snackPosition: SnackPosition.TOP,
+            backgroundColor: Colors.orange,
+            colorText: Colors.white,
+            margin: const EdgeInsets.all(10),
+          );
+
+          Get.offAllNamed('/login');
+        },
+        child: const Text("Iya", style: TextStyle(color: Colors.white)),
+      ),
+      cancel: ElevatedButton(
+        style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
+        onPressed: () => Get.back(),
+        child: const Text("Tidak", style: TextStyle(color: Colors.white)),
+      ),
+    );
   }
 
 void logout() {
@@ -106,6 +170,7 @@ void logout() {
         margin: const EdgeInsets.all(10),
       );
 
+
       Get.offAllNamed('/login');
       },
     child: const Text("Iya", style: TextStyle(color: Colors.white)),
@@ -124,5 +189,6 @@ void logout() {
   void clearControllers() {
     usernameController.clear();
     passwordController.clear();
+    isPasswordHidden.value = true; // Reset juga saat logout
   }
 }

@@ -27,9 +27,15 @@ TodolistEditPage({super.key});
             ),
             const SizedBox(height: 20),
 
-            // 🔥 Ubah Priority jadi Category
+
+           
+            Obx(() => DropdownButtonFormField<TaskPriority>(
+                  value: controller.selectedPriority.value,
+
+            
             Obx(() => DropdownButtonFormField<TaskCategory>(
                   value: controller.selectedCategory.value,
+
                   decoration: const InputDecoration(
                     labelText: "Kategori",
                     border: OutlineInputBorder(),

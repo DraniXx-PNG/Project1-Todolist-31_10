@@ -1,10 +1,20 @@
 import 'package:get/get.dart';
+<<<<<<< HEAD
 import 'package:project1_flutter/pages/todolist_page.dart';
+=======
+import 'package:project1_flutter/bindings/Examle_binding.dart';
+import 'package:project1_flutter/bindings/contact_binding.dart';
+import 'package:project1_flutter/bindings/splash_binding.dart';
+import 'package:project1_flutter/pages/contact_page.dart';
+import 'package:project1_flutter/pages/example_page.dart';
+import 'package:project1_flutter/pages/home_page.dart';
+>>>>>>> add41785e54426c9c91a03103392f5670ff6bfbb
 import 'package:project1_flutter/pages/login_page.dart';
 
 import 'package:project1_flutter/pages/history_page.dart';
 import 'package:project1_flutter/pages/main_page.dart';
 import 'package:project1_flutter/pages/profile_page.dart';
+import 'package:project1_flutter/pages/splashscreen_page.dart';
 import 'package:project1_flutter/pages/todolistedit_page.dart';
 import 'package:project1_flutter/routes/routes.dart';
 import '../bindings/login_binding.dart';
@@ -19,7 +29,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.login,
       page: () =>  LoginPage(),
-      binding: AuthBinding(),
+      binding: LoginBinding(),
     ),
  
     GetPage(
@@ -43,8 +53,27 @@ class AppPages {
       binding: ProfileBinding(),
     ),
     GetPage(
+<<<<<<< HEAD
       name: AppRoutes.main,
       page: () =>  MainPage(),
     ),
   ];
+=======
+      name: AppRoutes.splash,
+      page: () =>  SplashscreenPage(),
+      binding: SplashBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.contact,
+      page: () =>  ContactPage(),
+      binding: ContactBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.examplescreen,
+      page: () =>  ExamplePage(),
+      binding: ExamleBinding(),
+  
+  )];
+>>>>>>> add41785e54426c9c91a03103392f5670ff6bfbb
 }
+
