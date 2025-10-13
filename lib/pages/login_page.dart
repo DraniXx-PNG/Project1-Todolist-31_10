@@ -57,7 +57,7 @@ class LoginPage extends StatelessWidget {
                     MyTextField(
                       textEditingController: authController.usernameController,
                       labelText: "Username",
-                      IsPassword: false,
+                      isPassword: false,
                     ),
                     const SizedBox(height: 20),
 
@@ -65,7 +65,7 @@ class LoginPage extends StatelessWidget {
                     MyTextField(
                       textEditingController: authController.passwordController,
                       labelText: "Password",
-                      IsPassword: true,
+                      isPassword: true,
                     ),
                     const SizedBox(height: 30),
 

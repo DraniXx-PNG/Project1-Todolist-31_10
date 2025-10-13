@@ -1,50 +1,80 @@
 import 'package:get/get.dart';
-import 'package:project1_flutter/models/Todo_models.dart';
+import '../models/Todo_models.dart';
+import '../helper/db_helper.dart';
 
 class TodolistController extends GetxController {
   var tasks = <Task>[].obs;
   var historyTasks = <Task>[].obs;
+  final dbHelper = DBHelper();
 
+  @override
+  void onInit() {
+    super.onInit();
+    loadTasks(); // <-- Muat data dari database saat app dibuka
  
   void addTask(String title, {TaskCategory category = TaskCategory.sekolah}) {
     tasks.add(Task(title: title, category: category));
   }
 
-  void updateTask(int index, Task newTask) {
-    if (index >= 0 && index < tasks.length) {
-      tasks[index] = newTask;
-      tasks.refresh();
-    }
+  // 🔹 Ambil semua data dari database
+  Future<void> loadTasks() async {
+    final data = await dbHelper.getTasks();
+    tasks.value = data.map((e) => Task.fromMap(e)).toList();
+
+    // Pisahkan yang sudah selesai (isDone = true) ke history
+    historyTasks.value = tasks.where((task) => task.isDone).toList();
+    tasks.value = tasks.where((task) => !task.isDone).toList();
+
+    print("✅ Loaded ${tasks.length} active tasks & ${historyTasks.length} history tasks from DB");
   }
 
-  void toggleTask(int index) {
+  // 🔹 Tambah task baru
+  Future<void> addTask(String title, {TaskPriority priority = TaskPriority.normal}) async {
+    final newTask = Task(title: title, priority: priority);
+    await dbHelper.insertTask(newTask.toMap()); // simpan ke SQLite
+    await loadTasks(); // refresh list
+  }
+
+  // 🔹 Update task
+  Future<void> updateTask(int index, Task updatedTask) async {
+    final task = tasks[index];
+    updatedTask.id = task.id;
+    await dbHelper.updateTask(task.id!, updatedTask.toMap());
+    await loadTasks();
+  }
+
+  // 🔹 Tandai task selesai / belum
+  Future<void> toggleTask(int index) async {
     final task = tasks[index];
     task.isDone = !task.isDone;
-
+    await dbHelper.updateTask(task.id!, task.toMap());
+    await loadTasks();
+  }
+  // 🔹 Hapus task
+  Future<void> deleteTask(int index) async {
+    final id = tasks[index].id;
+    if (id != null) {
+      await dbHelper.deleteTask(id);
     if (task.isDone) {
       historyTasks.add(task);
       tasks.removeAt(index);
     }
-
-    tasks.refresh();
-    historyTasks.refresh();
+    await loadTasks();
   }
 
-  void restoreTask(int index) {
+  
+  Future<void> deleteHistoryTask(int index) async {
+    final id = historyTasks[index].id;
+    if (id != null) {
+      await dbHelper.deleteTask(id);
+    }
+    await loadTasks();
+  }
+
+  Future<void> restoreTask(int index) async {
     final task = historyTasks[index];
     task.isDone = false;
-    tasks.add(task);
-    historyTasks.removeAt(index);
-
-    tasks.refresh();
-    historyTasks.refresh();
-  }
-
-  void deleteTask(int index) {
-    tasks.removeAt(index);
-  }
-
-  void deleteHistoryTask(int index) {
-    historyTasks.removeAt(index);
+    await dbHelper.updateTask(task.id!, task.toMap());
+    await loadTasks();
   }
 }

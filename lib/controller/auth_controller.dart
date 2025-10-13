@@ -7,6 +7,9 @@ class AuthController extends GetxController {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  /// ⬇️ Tambahkan RxBool untuk toggle password visibility
+  var isPasswordHidden = true.obs;
+
   final users = [
     {
       "username": "ghasia",
@@ -174,5 +177,6 @@ void logout() {
   void clearControllers() {
     usernameController.clear();
     passwordController.clear();
+    isPasswordHidden.value = true; // Reset juga saat logout
   }
 }

@@ -26,7 +26,7 @@ class ContactPage extends StatelessWidget {
                   child: MyTextField(
                     textEditingController: controller.nameController,
                     labelText: 'Input Name',
-                    IsPassword: false,
+                    isPassword: false,
                   ),
                 ),
                 const SizedBox(width: 8),
