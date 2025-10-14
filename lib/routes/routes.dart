@@ -1,3 +1,5 @@
+
+
 class AppRoutes {
   static const login = '/login';
   static const bottomNav = '/bottom-nav';
@@ -6,5 +8,6 @@ class AppRoutes {
   static const history = '/history';
   static const main = '/main';
   static const profile = '/profile';
+  static const Splashscreen = '/Splashscreen';
 }
 

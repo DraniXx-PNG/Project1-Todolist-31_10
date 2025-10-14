@@ -10,4 +10,8 @@ class Task {
     this.isDone = false,
     this.category = TaskCategory.lainnya,
   });
+
+  Object? toJson() {}
+
+  static fromJson(jsonDecode) {}
 }

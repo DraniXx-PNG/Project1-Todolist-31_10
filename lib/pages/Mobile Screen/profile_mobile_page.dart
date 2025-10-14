@@ -38,20 +38,20 @@ class ProfileMobilePage extends StatelessWidget {
           children: [
             const SizedBox(height: 20),
 
-            // Foto Profil
+            
             CircleAvatar(
               radius: 60,
               backgroundImage: AssetImage(user["photo"] as String),
             ),
             const SizedBox(height: 10),
 
-            // Nama
+            
             Text(
               user["name"] as String,
               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
 
-            // Email
+            
             Text(
               user["email"] as String,
               style: const TextStyle(color: Colors.grey),
@@ -59,7 +59,7 @@ class ProfileMobilePage extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // Phone
+            
             Card(
               margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: ListTile(
