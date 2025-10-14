@@ -31,7 +31,7 @@ TodolistEditPage({super.key});
             Obx(() => DropdownButtonFormField<TaskCategory>(
                   value: controller.selectedPriority.value,
                   decoration: const InputDecoration(
-                    labelText: "Prioritas",
+                    labelText: "kategori",
                     border: OutlineInputBorder(),
                   ),
                   items: TaskCategory.values.map((priority) {
