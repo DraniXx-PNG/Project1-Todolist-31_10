@@ -9,7 +9,15 @@ class TodolistEditController extends GetxController {
 
   late TextEditingController titleController;
   late int taskIndex;
-  var selectedPriority = TaskPriority.normal.obs;
+  var selectedPriority = TaskCategory.sekolah.obs;
+
+  var isMobile = true.obs;
+
+
+  void updateLayout(BoxConstraints constraints){
+  isMobile.value = constraints.maxWidth < 600;
+}
+
 
   @override
   void onInit() {
@@ -20,7 +28,7 @@ class TodolistEditController extends GetxController {
     if (taskIndex >= 0 && taskIndex < todolistController.tasks.length) {
       final Task task = todolistController.tasks[taskIndex];
       titleController = TextEditingController(text: task.title);
-      selectedPriority.value = task.priority;
+      selectedPriority.value = task.category;
     } else {
       titleController = TextEditingController();
     }
@@ -38,7 +46,7 @@ class TodolistEditController extends GetxController {
       isDone: taskIndex >= 0
           ? todolistController.tasks[taskIndex].isDone
           : false,
-      priority: selectedPriority.value,
+      category: selectedPriority.value,
     );
 
     if (taskIndex >= 0) {

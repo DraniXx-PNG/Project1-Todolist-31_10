@@ -1,12 +1,20 @@
 import 'package:get/get.dart';
 import 'package:project1_flutter/models/Todo_models.dart';
+import 'package:flutter/material.dart';
 
 class TodolistController extends GetxController {
   var tasks = <Task>[].obs;
   var historyTasks = <Task>[].obs;
+  var isMobile = true.obs;
 
-  void addTask(String title, {TaskPriority priority = TaskPriority.normal}) {
-    tasks.add(Task(title: title, priority: priority));
+
+  void updateLayout(BoxConstraints constraints){
+  isMobile.value = constraints.maxWidth < 600;
+}
+
+
+  void addTask(String title, {TaskCategory priority = TaskCategory.sekolah}) {
+    tasks.add(Task(title: title, category: priority));
   }
 
   void updateTask(int index, Task newTask) {

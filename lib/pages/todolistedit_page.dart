@@ -28,14 +28,14 @@ TodolistEditPage({super.key});
             const SizedBox(height: 20),
 
             // 🔽 Dropdown Prioritas
-            Obx(() => DropdownButtonFormField<TaskPriority>(
+            Obx(() => DropdownButtonFormField<TaskCategory>(
                   value: controller.selectedPriority.value,
                   decoration: const InputDecoration(
                     labelText: "Prioritas",
                     border: OutlineInputBorder(),
                   ),
-                  items: TaskPriority.values.map((priority) {
-                    return DropdownMenuItem<TaskPriority>(
+                  items: TaskCategory.values.map((priority) {
+                    return DropdownMenuItem<TaskCategory>(
                       value: priority,
                       child: Text(priority.name.capitalizeFirst ?? ''),
                     );

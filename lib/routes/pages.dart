@@ -1,14 +1,12 @@
 import 'package:get/get.dart';
-import 'package:project1_flutter/pages/home_page.dart';
 import 'package:project1_flutter/pages/login_page.dart';
-import 'package:project1_flutter/pages/bottom_nav_view.dart';
+import 'package:project1_flutter/pages/todolist_page.dart';
 import 'package:project1_flutter/pages/history_page.dart';
+import 'package:project1_flutter/pages/main_page.dart';
 import 'package:project1_flutter/pages/profile_page.dart';
 import 'package:project1_flutter/pages/todolistedit_page.dart';
 import 'package:project1_flutter/routes/routes.dart';
-
 import '../bindings/login_binding.dart';
-import '../bindings/bottom_nav_binding.dart';
 import '../bindings/todolist_binding.dart';
 import '../bindings/todolist_edit_binding.dart';
 import '../bindings/history_binding.dart';
@@ -18,17 +16,13 @@ class AppPages {
   static final pages = [
     GetPage(
       name: AppRoutes.login,
-      page: () =>  LoginPage(),
-      binding: AuthBinding(),
+      page: () => LoginPage(),
+      binding: LoginBinding(),
     ),
-    GetPage(
-      name: AppRoutes.bottomNav,
-      page: () => BottomNavView(),
-      binding: BottomNavBinding(),
-    ),
+ 
     GetPage(
       name: AppRoutes.todolist,
-      page: () =>  HomePage(),
+      page: () => TodolistPage(),
       binding: TodolistBinding(),
     ),
     GetPage(
@@ -46,5 +40,10 @@ class AppPages {
       page: () =>  ProfilePage(),
       binding: ProfileBinding(),
     ),
+    GetPage(
+      name: AppRoutes.main,
+      page: () =>  MainPage(),
+    ),
   ];
 }
+
